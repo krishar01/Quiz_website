@@ -1,0 +1,135 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+     background-color: rgb(0, 0, 0); 
+}
+
+.player-name-box {
+  position: fixed;
+  top: 100px;
+  right: 10px;
+  background-color: yellow;
+  padding: 12px;
+  color: black;
+  font-size: 16px;
+  border: 2px solid black;
+  z-index: 999999;
+}
+
+
+
+.cover_box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5% auto;
+    padding: 2rem;
+    width: 30%;
+    max-width: 500px;
+    
+    background-color: lightpink;
+    border-radius: 12px;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.15);
+    text-align: center;
+}
+
+.qus_cover {
+    width: 100%;
+}
+
+.qus_cover h2 {
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+    color: #333;
+}
+
+.qus_cover select {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 8px;
+    background-color: white;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    outline: none;
+    transition: 0.2s ease;
+}
+
+.qus_cover select:hover {
+    background-color: #f5f5f5;
+    cursor: pointer;
+}
+
+.qus_slide {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 5% auto;
+    padding: 2rem;
+    width: 30%;
+    max-width: 500px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 0 5px black;
+
+}
+.qus_slide button{
+    background-color: lightpink;
+    border: none;
+    border-radius: 4px;
+    font-size: larger;
+    font-weight: bold;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+.qus_slide button:hover{
+    cursor: pointer;
+    transform: scale(1.05);
+}
+.new-game{
+    margin-top: 5px;
+    margin-bottom: 10px;
+    background-color: lightblue;
+}
+.home{
+    background-color: lightblue;
+}
+@media (max-width: 768px) {
+  .cover_box,
+  .qus_slide {
+    width: 90%;
+    padding: 1.5rem;
+    margin-top: 15%;
+  }
+  .player-name-box {
+    font-size: 0.9rem;
+    padding: 6px 12px;
+    top: 15px;
+    right: 100px;}
+  .qus_cover h2 {
+    font-size: 1.5rem;
+  }
+
+  .qus_cover select {
+    font-size: 0.95rem;
+    padding: 0.6rem;
+  }
+
+  .qus_slide h2 {
+    font-size: 1.4rem;
+    text-align: center;
+  }
+
+  .qus_slide p {
+    font-size: 1rem;
+    text-align: center;
+  }
+
+  .qus_slide button {
+    font-size: 1rem;
+    padding: 0.6rem 1rem;
+    width: 100%;
+  }
+}

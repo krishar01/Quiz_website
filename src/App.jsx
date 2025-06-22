@@ -4,6 +4,7 @@ import Home from './components/Home'
 import About from './components/About'
 import Quiz from './components/Quiz'
 import Score from './components/Score'
+import PlayerForm from './components/PlayerForm'
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
@@ -16,8 +17,8 @@ const App = () => {
           <Route path='/' element={<Home />} />
           <Route path='/about' element={<About />} />
           <Route path='/score' element={<Score />} />
-          <Route path='/quiz' element={<Quiz />} />
-
+          <Route path='/quiz/form' element={<PlayerForm />} />
+          <Route path='/quiz' element={<Quiz/>} />
         </Routes>
       </div>
     </Router>

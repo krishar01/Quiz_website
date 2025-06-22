@@ -13,7 +13,7 @@ const Navbar = () => {
        <ul className={isMobileNavOpen?'nav-links mobile':'nav-links'}
         onClick={()=>setIsMobileNavOpen(!isMobileNavOpen)}>
         <li><Link to={'/'}>HOME</Link></li>
-        <li><Link to={'/quiz'}>QUIZ</Link></li>
+        <li><Link to={'/quiz/form'}>QUIZ</Link></li>
         <li><Link to={'/score'}>SCORE</Link></li>
         <li><Link to={'/about'}>ABOUT</Link></li>
        </ul>
