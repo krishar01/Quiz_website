@@ -16,6 +16,7 @@ const Navbar = () => {
         <li><Link to={'/quiz/form'}>QUIZ</Link></li>
         <li><Link to={'/score'}>SCORE</Link></li>
         <li><Link to={'/about'}>ABOUT</Link></li>
+        <li><Link to={'/leaderboard'}>STATS</Link></li>
        </ul>
        <button className='hamburger' onClick={()=>setIsMobileNavOpen(!isMobileNavOpen)}>
         {isMobileNavOpen? '✕' : '☰'}</button>

@@ -1,0 +1,18 @@
+.new-game{
+    padding: 10px;
+    margin-right: 5px;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+}
+.home{
+    padding: 10px;
+    margin-left: 5px;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+}
+.new-game:hover,.home:hover{
+    cursor: pointer;
+    scale: 1.05;
+}

@@ -14,14 +14,47 @@ const Quiz = () => {
   const [seconds, setSeconds] = useState(0);
   const [difficulty, setDifficulty] = useState('');
   const [playerName, setPlayerName] = useState(localStorage.getItem('PlayerName') || '');
+  const [score, setScore] = useState(0);
 
   const record = useRef(null);
   const navigate = useNavigate();
 
-    {console.log('Player Name:', playerName)}
+useEffect(() => {
+  if (seconds==60) {
+    if (currentQ!==9) {
+      setCurrentQ((prev)=>prev+1);
+    }
+    setSubmitted(true);
+  }
+
+  return () => {
+    
+  }
+}, [seconds])
+
 
   useEffect(() => {
-    if ( data.length>0&&!submitted) {
+    if (submitted && currentQ === data.length - 1) {
+      const result = {
+        name: localStorage.getItem('PlayerName'),
+        score,
+        time: seconds,
+        date: new Date().toLocaleString(),
+      };
+
+     
+      localStorage.setItem('latestQuizResult', JSON.stringify(result));
+
+      
+      const old = JSON.parse(localStorage.getItem('quizScores')) || [];
+      old.push(result);
+      localStorage.setItem('quizScores', JSON.stringify(old));
+    }
+  }, [submitted, currentQ, data.length]);
+
+
+  useEffect(() => {
+    if (data.length > 0 && !submitted) {
 
       record.current = setInterval(() => {
         setSeconds((prev) => prev + 1);
@@ -58,7 +91,7 @@ const Quiz = () => {
     };
 
     if (category && difficulty) fetchData();
-  }, [category,difficulty]);
+  }, [category, difficulty]);
 
 
   const shuffleArray = (array) => {
@@ -78,15 +111,15 @@ const Quiz = () => {
 
   if (error) return <p style={{ color: 'red' }}>Error: {error}</p>;
 
-   
+
   if (!(category && difficulty)) {
     return (
       <div className='cover_box'>
         <div className="player-name-box">
-      👤 {playerName || 'Player'}
-    </div>
+          👤 {playerName || 'Player'}
+        </div>
         <div className='qus_cover'>
-          
+
           <h2>Select a Category</h2>
           <select onChange={(e) => setCategory(e.target.value)}
           >
@@ -113,6 +146,8 @@ const Quiz = () => {
             Correct Answer points: <span style={{ color: 'green' }}>+4</span></p>
           <p style={{ paddingTop: '10px', fontWeight: 'bold', fontSize: '19px' }}>
             Incorrect Answer pointes: <span style={{ color: 'red' }}>-1</span></p>
+          <p style={{ paddingTop: '10px', fontWeight: 'bold', fontSize: '19px' }}>
+            Time alloted each qus: <span style={{color:'yellow'}}>60s</span></p>
         </div>
 
       </div>
@@ -122,101 +157,102 @@ const Quiz = () => {
   }
 
 
-  if (data.length === 0) return <p style={{color:'white'}}>Loading...</p>;
-  
+  if (data.length === 0) return <video autoPlay muted loop playsInline style={{ pointerEvents: 'none' , objectFit:'fill'}} className='video'>
+         <source src="/media/cat.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>;
+
   return (
 
     <>
-      
 
-      
+
+
       <div className='qus_slide'>
-      <div className="player-name-box">
-      👤 {playerName || 'Player'}
-    </div>
-      <h2>Question {currentQ + 1} of {data.length}</h2>
-      <p>{item.question}</p>
+        <div className="player-name-box">
+          👤 {playerName || 'Player'}
+        </div>
+        <h2>Question {currentQ + 1} of {data.length}</h2>
+        <p>{item.question}</p>
 
-      <div>⏱️ Time: {seconds} s</div>
+        <div>⏱️ Time: {seconds} s/ 60 s</div>
 
-      {allAnswers.map((ans, i) => (
-        <button
-          key={i}
-          onClick={() => setSelected(ans)}
-          disabled={submitted}
-          style={{
-            backgroundColor: submitted
-              ? ans === item.correctAnswer
-                ? 'lightgreen'
-                : ans === selected
-                  ? 'salmon'
-                  : ''
-              : selected === ans
-                ? '#ddd'
-                : '',
-            display: 'block',
-            margin: '6px 0',
-          }}
-        >
-          {ans}
-        </button>
-      ))}
+        {allAnswers.map((ans, i) => (
+          <button
+            key={i}
+            onClick={() => setSelected(ans)}
+            disabled={submitted}
+            style={{
+              backgroundColor: submitted
+                ? ans === item.correctAnswer
+                  ? 'lightgreen'
+                  : ans === selected
+                    ? 'salmon'
+                    : ''
+                : selected === ans
+                  ? '#ddd'
+                  : '',
+              display: 'block',
+              margin: '6px 0',
+            }}
+          >
+            {ans}
+          </button>
+        ))}
 
-      {!submitted && (
-        <button
-          style={{ marginTop: '10px', backgroundColor: 'lightblue', scale: '1.05' }}
-          onClick={() => {
-            if (selected !== null) {
-              setSubmitted(true);
+        {!submitted && (
+          <button
+            style={{ marginTop: '10px', backgroundColor: 'lightblue', scale: '1.05' }}
+            onClick={() => {
+              if (selected !== null) {
+                setSubmitted(true);
+                clearInterval(record.current);
+                if (selected === item.correctAnswer) {
+                  setScore((prev) => prev + 4);
+                } else {
+                  setScore((prev) => prev - 1);
+                }
+              }
+
+            }}
+          >
+            Submit
+          </button>
+        )}
+
+        {submitted && currentQ < data.length - 1 && (
+          <button
+            style={{ marginTop: '10px' }}
+            onClick={() => {
               clearInterval(record.current);
-            }
+              setSeconds(0);
+              record.current = setInterval(() => {
 
-          }}
-        >
-          Submit
-        </button>
-      )}
-
-      {submitted && currentQ < data.length - 1 && (
-        <button
-          style={{ marginTop: '10px' }}
-          onClick={() => {
-            clearInterval(record.current);
-            setSeconds(0);
-            record.current = setInterval(() => {
-
-              setSeconds((prev) => prev + 1);
+                setSeconds((prev) => prev + 1);
 
 
 
-            }, 1000);
-            setCurrentQ((prev) => prev + 1);
-            setSelected(null);
-            setSubmitted(false);
+              }, 1000);
+              setCurrentQ((prev) => prev + 1);
+              setSelected(null);
+              setSubmitted(false);
 
-          }}
-        >
-          Next
-        </button>
-      )}
+            }}
+          >
+            Next
+          </button>
+        )}
 
-      {submitted && currentQ === data.length - 1 && (
-        <p style={{ marginTop: '10px', fontWeight: 'bold' }}>🎉 Quiz Completed!</p>
-      )}
-      {submitted && currentQ === data.length - 1 && (<button className='new-game' onClick={() => {
-        setCategory('');
-        setDifficulty('');
-        setData([]);
-        setCurrentQ(0);
-        setSelected(null);
-        setSubmitted(false);
-        setSeconds(0);
-      }}>New Quiz</button>)}
-      {submitted && currentQ === data.length - 1 && (<button className='home' onClick={() => navigate('/')}>Home</button>)}
+        {submitted && currentQ === data.length - 1 && (
+          <p style={{ marginTop: '10px', fontWeight: 'bold' }}>🎉 Quiz Completed!</p>
+        )}
+        {submitted && currentQ === data.length - 1 && (navigate('/score')
+        )}
 
-    </div>
+
+      </div>
     </>
-    
+
 
 
   );

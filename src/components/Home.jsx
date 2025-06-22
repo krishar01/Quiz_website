@@ -18,7 +18,7 @@ const Home = () => {
         <button className="start-btn" onClick={go_to_quiz}>Start Quiz</button>
       </div>
       <div className="home-image">
-        <video autoPlay muted loop playsInline style={{ pointerEvents: 'none' }}>
+        <video autoPlay muted loop playsInline style={{ pointerEvents: 'none' }} className='video'>
          <source src="/media/eyes.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>

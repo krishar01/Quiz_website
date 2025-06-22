@@ -76,4 +76,7 @@
   .home-image video {
     height: 300px;
   }
+  .video{
+    display: none;
+  }
 }
