@@ -2,11 +2,7 @@
 
 A fun and responsive quiz web app built using **ReactJS**. Test your knowledge, challenge your friends, and laugh at some memes along the way.
 
----
 
-## 📸 Preview
-
-![Quiz Demo](https://i.imgur.com/your_screenshot.png) <!-- Replace with your own image link or remove -->
 
 ---
 
@@ -35,5 +31,5 @@ A fun and responsive quiz web app built using **ReactJS**. Test your knowledge, 
 
 ## 🧪 Getting Started
 
-Deployed link-
+Deployed link-<br>
 Repository link-https://github.com/krishar01/Quiz_website/tree/main
