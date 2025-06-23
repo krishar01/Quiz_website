@@ -9,7 +9,7 @@ const Navbar = () => {
  
   return (
     <nav className='main'>
-      <p>ICON</p>
+      <img src="/media/quiz.png" alt="Quiz Icon" className="nav-icon" />
        <ul className={isMobileNavOpen?'nav-links mobile':'nav-links'}
         onClick={()=>setIsMobileNavOpen(!isMobileNavOpen)}>
         <li><Link to={'/'}>HOME</Link></li>
